@@ -21,7 +21,7 @@ module.exports = {
     'no-console': 1,
     //关闭使用解构赋值的检测
     // 'react/destructuring-assignment': [0, 'always'],
-    'prettier/prettier': ['error'],
+    'prettier/prettier': ['error', { arrowParens: 'avoid' }],
   },
   settings: {
     react: {
