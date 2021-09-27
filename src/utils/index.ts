@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const isFalsy = (value: any) => (value === 0 ? false : !value);
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const cleanObject = (obj: object) => {
@@ -24,7 +24,7 @@ export const useMount = (callback: () => void) => {
   }, []);
 };
 
-export const useDebounce = (value: any, delay: number) => {
+export const useDebounce = (value: unknown, delay: number): any => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
