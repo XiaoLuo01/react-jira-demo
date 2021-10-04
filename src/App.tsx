@@ -1,15 +1,12 @@
 import React from 'react';
+import AuthenticatedApp from 'authenticatedApp';
+import { useAuth } from 'context/auth-context';
+import UnAuthenticatedApp from 'unAuthenticatedApp';
 import './App.css';
-import ProjectList from 'pages/ProjectList';
-import Login from 'pages/Login';
 
 function App() {
-  return (
-    <div className="App">
-      <Login />
-      {/* <ProjectList /> */}
-    </div>
-  );
+  const { user } = useAuth();
+  return <div className="App">{user ? <AuthenticatedApp /> : <UnAuthenticatedApp />}</div>;
 }
 
 export default App;
