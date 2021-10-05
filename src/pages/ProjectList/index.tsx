@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { cleanObject, useMount, useDebounce } from 'utils';
-import * as qs from 'qs';
 import List from './List';
 import SearchPanel from './SearchPanel';
+import { useHttp } from 'utils/http';
 
 interface ProjectListProps {}
 
@@ -16,21 +16,14 @@ const ProjectList: React.FC<ProjectListProps> = () => {
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]);
   const debounceParam = useDebounce(param, 200);
+  const client = useHttp();
 
   useEffect(() => {
-    fetch(`${apiURL}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async response => {
-      if (response.ok) {
-        setList(await response.json());
-      }
-    });
+    client('projects', { data: cleanObject(debounceParam) }).then(setList);
   }, [debounceParam]);
 
   useMount(() => {
-    fetch(`${apiURL}/users`).then(async response => {
-      if (response.ok) {
-        setUsers(await response.json());
-      }
-    });
+    client('users').then(setUsers);
   });
 
   return (
