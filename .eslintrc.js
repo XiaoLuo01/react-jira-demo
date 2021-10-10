@@ -19,6 +19,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
     'no-console': 1,
+    '@typescript-eslint/no-var-requires': 'off',
     //关闭使用解构赋值的检测
     // 'react/destructuring-assignment': [0, 'always'],
     'prettier/prettier': ['error', { arrowParens: 'avoid' }],
