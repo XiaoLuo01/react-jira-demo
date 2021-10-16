@@ -1,6 +1,7 @@
 import { useAuth } from 'context/auth-context';
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
+import { LongButton } from 'unAuthenticatedApp';
 
 interface LoginProps {}
 
@@ -20,9 +21,9 @@ const Login: React.FC<LoginProps> = () => {
         <Input type="password" id={'password'} placeholder="密码" />
       </Form.Item>
       <Form.Item>
-        <Button htmlType={'submit'} type={'primary'}>
+        <LongButton htmlType={'submit'} type={'primary'}>
           登录
-        </Button>
+        </LongButton>
       </Form.Item>
     </Form>
   );

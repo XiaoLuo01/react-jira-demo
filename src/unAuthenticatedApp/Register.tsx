@@ -1,6 +1,7 @@
-import { Button, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 import { useAuth } from 'context/auth-context';
 import React from 'react';
+import { LongButton } from 'unAuthenticatedApp';
 
 interface RegisterProps {}
 
@@ -20,9 +21,9 @@ const Register: React.FC<RegisterProps> = () => {
         <Input type="password" id={'password'} placeholder="密码" />
       </Form.Item>
       <Form.Item>
-        <Button htmlType={'submit'} type={'primary'}>
+        <LongButton htmlType={'submit'} type={'primary'}>
           注册
-        </Button>
+        </LongButton>
       </Form.Item>
     </Form>
   );

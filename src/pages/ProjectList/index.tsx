@@ -6,8 +6,6 @@ import { useHttp } from 'utils/http';
 
 interface ProjectListProps {}
 
-const apiURL = process.env.REACT_APP_API_URL;
-
 const ProjectList: React.FC<ProjectListProps> = () => {
   const [param, setParam] = useState({
     name: '',
