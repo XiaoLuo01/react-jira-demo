@@ -38,6 +38,7 @@ const List: React.FC<ListProps> = ({ users, list }) => {
         },
       ]}
       dataSource={list}
+      rowKey={'id'}
     />
   );
 };

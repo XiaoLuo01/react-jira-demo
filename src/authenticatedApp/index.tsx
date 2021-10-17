@@ -4,7 +4,7 @@ import { useAuth } from 'context/auth-context';
 import ProjectList from 'pages/ProjectList';
 import React from 'react';
 import { ReactComponent as SoftwareLogo } from 'assets/software-logo.svg';
-import { Dropdown, Menu } from 'antd';
+import { Button, Dropdown, Menu } from 'antd';
 
 interface AuthenticatedAppProps {}
 
@@ -23,12 +23,16 @@ const AuthenticatedApp: React.FC<AuthenticatedAppProps> = () => {
             overlay={
               <Menu>
                 <Menu.Item key={'logout'}>
-                  <a onClick={logout}>登出</a>
+                  <Button type={'link'} onClick={logout}>
+                    登出
+                  </Button>
                 </Menu.Item>
               </Menu>
             }
           >
-            <a onClick={e => e.preventDefault()}>Hi, {user?.name}</a>
+            <Button type={'link'} onClick={e => e.preventDefault()}>
+              Hi, {user?.name}
+            </Button>
           </Dropdown>
         </HeaderRight>
       </Header>
