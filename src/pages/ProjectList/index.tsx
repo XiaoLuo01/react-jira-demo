@@ -3,6 +3,7 @@ import { cleanObject, useMount, useDebounce } from 'utils';
 import List from './List';
 import SearchPanel from './SearchPanel';
 import { useHttp } from 'utils/http';
+import styled from '@emotion/styled';
 
 interface ProjectListProps {}
 
@@ -25,11 +26,16 @@ const ProjectList: React.FC<ProjectListProps> = () => {
   });
 
   return (
-    <div>
+    <Container>
+      <h2>项目列表</h2>
       <SearchPanel param={param} setParam={setParam} users={users} />
       <List list={list} users={users} />
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 3.2rem;
+`;
 
 export default ProjectList;
