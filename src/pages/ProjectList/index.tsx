@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { cleanObject, useMount, useDebounce } from 'utils';
+import React, { useState } from 'react';
+import { useDebounce } from 'utils';
 import List from './List';
 import SearchPanel from './SearchPanel';
-import { useHttp } from 'utils/http';
 import styled from '@emotion/styled';
+import { Typography } from 'antd';
+import { useProject } from 'utils/project';
+import { useUsers } from 'utils/user';
 
 interface ProjectListProps {}
 
@@ -12,24 +14,18 @@ const ProjectList: React.FC<ProjectListProps> = () => {
     name: '',
     personId: '',
   });
-  const [list, setList] = useState([]);
-  const [users, setUsers] = useState([]);
   const debounceParam = useDebounce(param, 200);
-  const client = useHttp();
 
-  useEffect(() => {
-    client('projects', { data: cleanObject(debounceParam) }).then(setList);
-  }, [debounceParam]);
+  const { data: users } = useUsers();
 
-  useMount(() => {
-    client('users').then(setUsers);
-  });
+  const { isLoading, error, data: list } = useProject(debounceParam);
 
   return (
     <Container>
       <h2>项目列表</h2>
-      <SearchPanel param={param} setParam={setParam} users={users} />
-      <List list={list} users={users} />
+      <SearchPanel param={param} setParam={setParam} users={users || []} />
+      {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
+      <List loading={isLoading} dataSource={list || []} users={users || []} />
     </Container>
   );
 };
