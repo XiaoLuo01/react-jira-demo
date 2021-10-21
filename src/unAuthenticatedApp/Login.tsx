@@ -2,14 +2,18 @@ import { useAuth } from 'context/auth-context';
 import React from 'react';
 import { Form, Input } from 'antd';
 import { LongButton } from 'unAuthenticatedApp';
+import { useAsync } from 'utils/use-async';
 
-interface LoginProps {}
+interface LoginProps {
+  onError: (error: Error) => void;
+}
 
-const Login: React.FC<LoginProps> = () => {
+const Login: React.FC<LoginProps> = ({ onError }) => {
   const { login } = useAuth();
+  const { run, isLoading } = useAsync(undefined, { throwOnError: true });
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    login(values);
+    run(login(values).catch(onError));
   };
 
   return (
@@ -21,7 +25,7 @@ const Login: React.FC<LoginProps> = () => {
         <Input type="password" id={'password'} placeholder="密码" />
       </Form.Item>
       <Form.Item>
-        <LongButton htmlType={'submit'} type={'primary'}>
+        <LongButton loading={isLoading} htmlType={'submit'} type={'primary'}>
           登录
         </LongButton>
       </Form.Item>
