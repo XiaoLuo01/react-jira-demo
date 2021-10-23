@@ -22,7 +22,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     //关闭使用解构赋值的检测
     // 'react/destructuring-assignment': [0, 'always'],
-    'prettier/prettier': ['error', { arrowParens: 'avoid' }],
+    'prettier/prettier': ['error', { arrowParens: 'avoid', printWidth: 120 }],
   },
   settings: {
     react: {
