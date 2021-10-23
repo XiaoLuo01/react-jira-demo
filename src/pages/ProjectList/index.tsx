@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDebounce } from 'utils';
+import { useDebounce, useDocumentTitle } from 'utils';
 import List from './List';
 import SearchPanel from './SearchPanel';
 import styled from '@emotion/styled';
@@ -10,6 +10,7 @@ import { useUsers } from 'utils/user';
 interface ProjectListProps {}
 
 const ProjectList: React.FC<ProjectListProps> = () => {
+  useDocumentTitle('项目列表', false);
   const [param, setParam] = useState({
     name: '',
     personId: '',
