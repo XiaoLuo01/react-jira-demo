@@ -6,16 +6,14 @@ import styled from '@emotion/styled';
 import { Typography } from 'antd';
 import { useProject } from 'utils/project';
 import { useUsers } from 'utils/user';
-import { useUrlQueryParam } from 'utils/url';
+import { useProjectsSearchParams } from './util';
 
 const ProjectList = () => {
   useDocumentTitle('项目列表', false);
-  const [param, setParam] = useUrlQueryParam(['name', 'personId']);
-  const debounceParam = useDebounce(param, 200);
 
+  const [param, setParam] = useProjectsSearchParams();
   const { data: users } = useUsers();
-
-  const { isLoading, error, data: list } = useProject(debounceParam);
+  const { isLoading, error, data: list } = useProject(useDebounce(param, 200));
 
   return (
     <Container>
@@ -33,4 +31,4 @@ const Container = styled.div`
 
 export default ProjectList;
 
-ProjectList.whyDidYouRender = false;
+ProjectList.whyDidYouRender = true;
