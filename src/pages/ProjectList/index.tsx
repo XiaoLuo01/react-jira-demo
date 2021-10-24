@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDebounce, useDocumentTitle } from 'utils';
 import List from './List';
 import SearchPanel from './SearchPanel';
@@ -10,11 +10,7 @@ import { useUrlQueryParam } from 'utils/url';
 
 const ProjectList = () => {
   useDocumentTitle('项目列表', false);
-  const [, setParam] = useState({
-    name: '',
-    personId: '',
-  });
-  const [param] = useUrlQueryParam(['name', 'personId']);
+  const [param, setParam] = useUrlQueryParam(['name', 'personId']);
   const debounceParam = useDebounce(param, 200);
 
   const { data: users } = useUsers();
@@ -37,4 +33,4 @@ const Container = styled.div`
 
 export default ProjectList;
 
-ProjectList.whyDidYouRender = true;
+ProjectList.whyDidYouRender = false;
