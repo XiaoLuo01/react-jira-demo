@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Row } from 'components/lib';
+import { ButtonNoPadding, Row } from 'components/lib';
 import { useAuth } from 'context/auth-context';
 import ProjectList from 'pages/ProjectList';
 import { ReactComponent as SoftwareLogo } from 'assets/software-logo.svg';
@@ -8,6 +8,7 @@ import { Button, Dropdown, Menu } from 'antd';
 import { Navigate, Routes, Route } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ProjectDetail from 'pages/ProjectDetail';
+import { resetRouter } from 'utils';
 
 interface AuthenticatedAppProps {}
 
@@ -18,8 +19,8 @@ const AuthenticatedApp: React.FC<AuthenticatedAppProps> = () => {
       <Main>
         <Router>
           <Routes>
-            <Route path={'/projects'} element={<ProjectList />} />
-            <Route path={'/projects/:projectId/*'} element={<ProjectDetail />} />
+            <Route path="/projects" element={<ProjectList />}></Route>
+            <Route path="/projects/:projectId/*" element={<ProjectDetail />}></Route>
             <Navigate to={window.location.pathname + '/projects'} />
           </Routes>
         </Router>
@@ -32,11 +33,11 @@ const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        {/* <ButtonNoPadding type={'link'}> */}
-        <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
+        <ButtonNoPadding type={'link'} onClick={resetRouter}>
+          <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
+        </ButtonNoPadding>
         <h3>项目</h3>
         <h3>用户</h3>
-        {/* </ButtonNoPadding> */}
       </HeaderLeft>
       <HeaderRight>
         <User />
