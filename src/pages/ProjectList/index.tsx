@@ -6,15 +6,15 @@ import styled from '@emotion/styled';
 import { Typography } from 'antd';
 import { useProject } from 'utils/project';
 import { useUsers } from 'utils/user';
+import { useUrlQueryParam } from 'utils/url';
 
-interface ProjectListProps {}
-
-const ProjectList: React.FC<ProjectListProps> = () => {
+const ProjectList = () => {
   useDocumentTitle('项目列表', false);
-  const [param, setParam] = useState({
+  const [, setParam] = useState({
     name: '',
     personId: '',
   });
+  const [param] = useUrlQueryParam(['name', 'personId']);
   const debounceParam = useDebounce(param, 200);
 
   const { data: users } = useUsers();
@@ -36,3 +36,5 @@ const Container = styled.div`
 `;
 
 export default ProjectList;
+
+ProjectList.whyDidYouRender = true;

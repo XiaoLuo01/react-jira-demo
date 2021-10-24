@@ -4,7 +4,6 @@ export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
 export const isVoid = (value: unknown) => value === undefined || value === null || value === '';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export const cleanObject = (obj: { [key: string]: unknown }) => {
   const result = { ...obj };
   Object.keys(result).forEach(key => {
