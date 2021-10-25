@@ -13,14 +13,14 @@ const ProjectList = () => {
 
   const [param, setParam] = useProjectsSearchParams();
   const { data: users } = useUsers();
-  const { isLoading, error, data: list } = useProject(useDebounce(param, 200));
+  const { isLoading, error, data: list, retry } = useProject(useDebounce(param, 200));
 
   return (
     <Container>
       <h2>项目列表</h2>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
-      <List loading={isLoading} dataSource={list || []} users={users || []} />
+      <List refresh={retry} loading={isLoading} dataSource={list || []} users={users || []} />
     </Container>
   );
 };

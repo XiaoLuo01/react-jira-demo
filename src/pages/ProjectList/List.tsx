@@ -17,10 +17,12 @@ export interface Project {
 
 interface ListProps extends TableProps<Project> {
   users: User[];
+  refresh?: () => void;
 }
 
 const List: React.FC<ListProps> = ({ users, ...props }) => {
   const { mutate } = useEditProject();
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh);
   return (
     <Table
       pagination={false}
@@ -28,14 +30,7 @@ const List: React.FC<ListProps> = ({ users, ...props }) => {
         {
           title: <Pin checked={true} disabled={true} />,
           render(value, project) {
-            return (
-              <Pin
-                checked={project.pin}
-                onCheckedChange={pin => {
-                  mutate({ id: project.id, pin });
-                }}
-              />
-            );
+            return <Pin checked={project.pin} onCheckedChange={pinProject(project.id)} />;
           },
         },
         {

@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     'no-console': 1,
     '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
     //关闭使用解构赋值的检测
     // 'react/destructuring-assignment': [0, 'always'],
     'prettier/prettier': ['error', { arrowParens: 'avoid', printWidth: 120 }],
