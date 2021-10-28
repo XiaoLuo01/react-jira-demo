@@ -4,7 +4,7 @@ module.exports = {
     'plugin:react/recommended', // 使用来自 @eslint-plugin-react 的推荐规则
     'plugin:@typescript-eslint/recommended', // 使用来自@typescript-eslint/eslint-plugin的推荐规则
   ],
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'react-hooks'],
   parserOptions: {
     ecmaVersion: 2018, // 允许解析最新的 ECMAScript 特性
     sourceType: 'module', // 允许使用 import
@@ -21,6 +21,8 @@ module.exports = {
     'no-console': 1,
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'off',
     //关闭使用解构赋值的检测
     // 'react/destructuring-assignment': [0, 'always'],
     'prettier/prettier': ['error', { arrowParens: 'avoid', printWidth: 120 }],
