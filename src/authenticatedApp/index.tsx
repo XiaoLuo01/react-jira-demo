@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { ButtonNoPadding, Row } from 'components/lib';
 import { useAuth } from 'context/auth-context';
@@ -9,35 +9,39 @@ import { Navigate, Routes, Route } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ProjectDetail from 'pages/ProjectDetail';
 import { resetRouter } from 'utils';
+import ProjectModal from 'pages/ProjectList/ProjectModal';
+import ProjectPopover from 'components/ProjectPopover';
 
 interface AuthenticatedAppProps {}
 
 const AuthenticatedApp: React.FC<AuthenticatedAppProps> = () => {
+  const [projectModalOpen, setProjectModalOpen] = useState(false);
   return (
     <Container>
-      <PageHeader />
+      <PageHeader setProjectModalOpen={setProjectModalOpen} />
       <Main>
         <Router>
           <Routes>
-            <Route path="/projects" element={<ProjectList />}></Route>
+            <Route path="/projects" element={<ProjectList setProjectModalOpen={setProjectModalOpen} />}></Route>
             <Route path="/projects/:projectId/*" element={<ProjectDetail />}></Route>
             <Navigate to={window.location.pathname + '/projects'} />
           </Routes>
         </Router>
       </Main>
+      <ProjectModal projectModalOpen={projectModalOpen} onClose={() => setProjectModalOpen(false)} />
     </Container>
   );
 };
 
-const PageHeader = () => {
+const PageHeader = (props: { setProjectModalOpen: (isOpen: boolean) => void }) => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <ButtonNoPadding type={'link'} onClick={resetRouter}>
           <SoftwareLogo width={'18rem'} color={'rgb(38, 132, 255)'} />
         </ButtonNoPadding>
-        <h3>项目</h3>
-        <h3>用户</h3>
+        <ProjectPopover setProjectModalOpen={props.setProjectModalOpen} />
+        <span>用户</span>
       </HeaderLeft>
       <HeaderRight>
         <User />

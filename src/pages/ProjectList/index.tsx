@@ -3,12 +3,17 @@ import { useDebounce, useDocumentTitle } from 'utils';
 import List from './List';
 import SearchPanel from './SearchPanel';
 import styled from '@emotion/styled';
-import { Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import { useProject } from 'utils/project';
 import { useUsers } from 'utils/user';
 import { useProjectsSearchParams } from './util';
+import { Row } from 'components/lib';
 
-const ProjectList = () => {
+interface ProjectListProps {
+  setProjectModalOpen: (isOpen: boolean) => void;
+}
+
+const ProjectList: React.FC<ProjectListProps> = ({ setProjectModalOpen }) => {
   useDocumentTitle('项目列表', false);
 
   const [param, setParam] = useProjectsSearchParams();
@@ -17,10 +22,19 @@ const ProjectList = () => {
 
   return (
     <Container>
-      <h2>项目列表</h2>
+      <Row between={true}>
+        <h2>项目列表</h2>
+        <Button onClick={() => setProjectModalOpen(true)}>创建项目</Button>
+      </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
-      <List refresh={retry} loading={isLoading} dataSource={list || []} users={users || []} />
+      <List
+        setProjectModalOpen={setProjectModalOpen}
+        refresh={retry}
+        loading={isLoading}
+        dataSource={list || []}
+        users={users || []}
+      />
     </Container>
   );
 };
@@ -31,4 +45,4 @@ const Container = styled.div`
 
 export default ProjectList;
 
-ProjectList.whyDidYouRender = true;
+// ProjectList.whyDidYouRender = true;

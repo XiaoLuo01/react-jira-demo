@@ -1,4 +1,5 @@
-import { Table, TableProps } from 'antd';
+import { Dropdown, Table, TableProps, Menu } from 'antd';
+import { ButtonNoPadding } from 'components/lib';
 import Pin from 'components/Pin';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -18,9 +19,10 @@ export interface Project {
 interface ListProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
+  setProjectModalOpen: (isOpen: boolean) => void;
 }
 
-const List: React.FC<ListProps> = ({ users, ...props }) => {
+const List: React.FC<ListProps> = ({ users, setProjectModalOpen, ...props }) => {
   const { mutate } = useEditProject();
   const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh);
   return (
@@ -51,6 +53,25 @@ const List: React.FC<ListProps> = ({ users, ...props }) => {
           title: '创建时间',
           render(value, project) {
             return <span>{project.created ? dayjs(project.created).format('YYYY-MM-DD') : '无'}</span>;
+          },
+        },
+        {
+          render() {
+            return (
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key={'edit'}>
+                      <ButtonNoPadding type={'link'} onClick={() => setProjectModalOpen(true)}>
+                        编辑
+                      </ButtonNoPadding>
+                    </Menu.Item>
+                  </Menu>
+                }
+              >
+                <ButtonNoPadding type={'link'}>...</ButtonNoPadding>
+              </Dropdown>
+            );
           },
         },
       ]}
