@@ -3,17 +3,17 @@ import { useDebounce, useDocumentTitle } from 'utils';
 import List from './List';
 import SearchPanel from './SearchPanel';
 import styled from '@emotion/styled';
-import { Button, Typography } from 'antd';
+import { Typography } from 'antd';
 import { useProject } from 'utils/project';
 import { useUsers } from 'utils/user';
 import { useProjectsSearchParams } from './util';
 import { Row } from 'components/lib';
 
 interface ProjectListProps {
-  setProjectModalOpen: (isOpen: boolean) => void;
+  projectButton: JSX.Element;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ setProjectModalOpen }) => {
+const ProjectList: React.FC<ProjectListProps> = ({ projectButton }) => {
   useDocumentTitle('项目列表', false);
 
   const [param, setParam] = useProjectsSearchParams();
@@ -24,12 +24,12 @@ const ProjectList: React.FC<ProjectListProps> = ({ setProjectModalOpen }) => {
     <Container>
       <Row between={true}>
         <h2>项目列表</h2>
-        <Button onClick={() => setProjectModalOpen(true)}>创建项目</Button>
+        {projectButton}
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
       <List
-        setProjectModalOpen={setProjectModalOpen}
+        projectButton={projectButton}
         refresh={retry}
         loading={isLoading}
         dataSource={list || []}
