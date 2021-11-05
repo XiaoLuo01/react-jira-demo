@@ -3,8 +3,10 @@ import { ButtonNoPadding } from 'components/lib';
 import Pin from 'components/Pin';
 import dayjs from 'dayjs';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEditProject } from 'utils/project';
+import { ProjectListActions } from './ProjectList.slice';
 import { User } from './SearchPanel';
 
 export interface Project {
@@ -19,10 +21,11 @@ export interface Project {
 interface ListProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
-  projectButton: JSX.Element;
 }
 
-const List: React.FC<ListProps> = ({ users, projectButton, ...props }) => {
+const List: React.FC<ListProps> = ({ users, ...props }) => {
+  const dispatch = useDispatch();
+
   const { mutate } = useEditProject();
   const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh);
   return (
@@ -61,7 +64,11 @@ const List: React.FC<ListProps> = ({ users, projectButton, ...props }) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={'edit'}>{projectButton}</Menu.Item>
+                    <Menu.Item key={'edit'}>
+                      <ButtonNoPadding onClick={() => dispatch(ProjectListActions.openProjectModal())} type={'link'}>
+                        编辑
+                      </ButtonNoPadding>
+                    </Menu.Item>
                   </Menu>
                 }
               >
