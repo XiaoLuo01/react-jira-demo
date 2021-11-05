@@ -6,15 +6,14 @@ import styled from '@emotion/styled';
 import { Typography } from 'antd';
 import { useProject } from 'utils/project';
 import { useUsers } from 'utils/user';
-import { useProjectsSearchParams } from './util';
-import { Row } from 'components/lib';
+import { useProjectModal, useProjectsSearchParams } from './util';
+import { ButtonNoPadding, Row } from 'components/lib';
 
-interface ProjectListProps {
-  projectButton: JSX.Element;
-}
+interface ProjectListProps {}
 
-const ProjectList: React.FC<ProjectListProps> = ({ projectButton }) => {
+const ProjectList: React.FC<ProjectListProps> = () => {
   useDocumentTitle('项目列表', false);
+  const { open } = useProjectModal();
 
   const [param, setParam] = useProjectsSearchParams();
   const { data: users } = useUsers();
@@ -24,17 +23,13 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectButton }) => {
     <Container>
       <Row between={true}>
         <h2>项目列表</h2>
-        {projectButton}
+        <ButtonNoPadding onClick={open} type={'link'}>
+          创建项目
+        </ButtonNoPadding>
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
-      <List
-        projectButton={projectButton}
-        refresh={retry}
-        loading={isLoading}
-        dataSource={list || []}
-        users={users || []}
-      />
+      <List refresh={retry} loading={isLoading} dataSource={list || []} users={users || []} />
     </Container>
   );
 };
