@@ -3,11 +3,10 @@ import { useDebounce, useDocumentTitle } from 'utils';
 import List from './List';
 import SearchPanel from './SearchPanel';
 import styled from '@emotion/styled';
-import { Typography } from 'antd';
 import { useProject } from 'utils/project';
 import { useUsers } from 'utils/user';
 import { useProjectModal, useProjectsSearchParams } from './util';
-import { ButtonNoPadding, Row } from 'components/lib';
+import { ButtonNoPadding, ErrorBox, Row } from 'components/lib';
 
 interface ProjectListProps {}
 
@@ -17,7 +16,7 @@ const ProjectList: React.FC<ProjectListProps> = () => {
 
   const [param, setParam] = useProjectsSearchParams();
   const { data: users } = useUsers();
-  const { isLoading, error, data: list, retry } = useProject(useDebounce(param, 200));
+  const { isLoading, error, data: list } = useProject(useDebounce(param, 200));
 
   return (
     <Container>
@@ -28,8 +27,8 @@ const ProjectList: React.FC<ProjectListProps> = () => {
         </ButtonNoPadding>
       </Row>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
-      {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
-      <List refresh={retry} loading={isLoading} dataSource={list || []} users={users || []} />
+      <ErrorBox error={error} />
+      <List loading={isLoading} dataSource={list || []} users={users || []} />
     </Container>
   );
 };

@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
-import { Button, Card, Divider, Typography } from 'antd';
+import { Button, Card, Divider } from 'antd';
 import React, { useState } from 'react';
 import Login from 'unAuthenticatedApp/Login';
 import Register from 'unAuthenticatedApp/Register';
 import logo from 'assets/logo.svg';
 import left from 'assets/left.svg';
 import right from 'assets/right.svg';
+import { ErrorBox } from 'components/lib';
 
 interface UnAuthenticatedAppProps {}
 
@@ -18,7 +19,7 @@ const UnAuthenticatedApp: React.FC<UnAuthenticatedAppProps> = () => {
       <Background />
       <ShadowCard>
         <Title>{isRegister ? '请注册' : '请登录'}</Title>
-        {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
+        <ErrorBox error={error} />
         {isRegister ? <Register onError={setError} /> : <Login onError={setError} />}
         <Divider />
         <Button type={'link'} onClick={() => setIsRegister(!isRegister)}>
