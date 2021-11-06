@@ -2,7 +2,7 @@ import { Project } from 'pages/ProjectList/List';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useHttp } from './http';
 
-export const useProject = (param?: Partial<Project>) => {
+export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
 
   return useQuery<Project[]>(['projects', param], () => client('projects', { data: param }));
@@ -30,7 +30,7 @@ export const useAddProject = () => {
 
   return useMutation(
     (params: Partial<Project>) =>
-      client(`projects/${params.id}`, {
+      client(`projects`, {
         method: 'POST',
         data: params,
       }),
@@ -38,4 +38,11 @@ export const useAddProject = () => {
       onSuccess: () => queryClient.invalidateQueries('projects'),
     }
   );
+};
+
+export const useProject = (id?: number) => {
+  const client = useHttp();
+  return useQuery<Project>(['project', { id }], () => client(`projects/${id}`), {
+    enabled: Boolean(id),
+  });
 };

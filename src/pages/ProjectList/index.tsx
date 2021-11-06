@@ -3,7 +3,7 @@ import { useDebounce, useDocumentTitle } from 'utils';
 import List from './List';
 import SearchPanel from './SearchPanel';
 import styled from '@emotion/styled';
-import { useProject } from 'utils/project';
+import { useProjects } from 'utils/project';
 import { useUsers } from 'utils/user';
 import { useProjectModal, useProjectsSearchParams } from './util';
 import { ButtonNoPadding, ErrorBox, Row } from 'components/lib';
@@ -16,7 +16,7 @@ const ProjectList: React.FC<ProjectListProps> = () => {
 
   const [param, setParam] = useProjectsSearchParams();
   const { data: users } = useUsers();
-  const { isLoading, error, data: list } = useProject(useDebounce(param, 200));
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
 
   return (
     <Container>
