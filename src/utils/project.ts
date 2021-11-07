@@ -1,6 +1,7 @@
+import { useEditConfig, useAddConfig, useDeleteConfig } from './use-optimistic-options';
 import { useProjectsSearchParams } from 'pages/ProjectList/util';
 import { Project } from 'pages/ProjectList/List';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient, QueryKey } from 'react-query';
 import { useHttp } from './http';
 
 export const useProjects = (param?: Partial<Project>) => {
@@ -9,11 +10,8 @@ export const useProjects = (param?: Partial<Project>) => {
   return useQuery<Project[]>(['projects', param], () => client('projects', { data: param }));
 };
 
-export const useEditProject = () => {
+export const useEditProject = (queryKey: QueryKey) => {
   const client = useHttp();
-  const queryClient = useQueryClient();
-  const [searchParams] = useProjectsSearchParams();
-  const queryKey = ['projects', searchParams];
 
   return useMutation(
     (params: Partial<Project>) =>
@@ -21,25 +19,12 @@ export const useEditProject = () => {
         method: 'PATCH',
         data: params,
       }),
-    {
-      onSuccess: () => queryClient.invalidateQueries('projects'),
-      async onMutate(target) {
-        const previousItems = queryClient.getQueryData(queryKey);
-        queryClient.setQueryData(queryKey, (old?: Project[]) => {
-          return old?.map(project => (project.id === target.id ? { ...project, ...target } : project)) || [];
-        });
-        return { previousItems };
-      },
-      onError(error, newItem, context) {
-        queryClient.setQueryData(queryKey, (context as { previousItems: Project[] }).previousItems);
-      },
-    }
+    useEditConfig(queryKey)
   );
 };
 
-export const useAddProject = () => {
+export const useAddProject = (queryKey: QueryKey) => {
   const client = useHttp();
-  const queryClient = useQueryClient();
 
   return useMutation(
     (params: Partial<Project>) =>
@@ -47,9 +32,19 @@ export const useAddProject = () => {
         method: 'POST',
         data: params,
       }),
-    {
-      onSuccess: () => queryClient.invalidateQueries('projects'),
-    }
+    useAddConfig(queryKey)
+  );
+};
+
+export const useDeleteroject = (queryKey: QueryKey) => {
+  const client = useHttp();
+
+  return useMutation(
+    (id: number) =>
+      client(`projects/${id}`, {
+        method: 'DELETE',
+      }),
+    useDeleteConfig(queryKey)
   );
 };
 

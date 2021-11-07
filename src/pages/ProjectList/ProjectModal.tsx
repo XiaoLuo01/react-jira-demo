@@ -5,7 +5,7 @@ import { ErrorBox } from 'components/lib';
 import UserSelect from 'components/UserSelect';
 import React, { useEffect } from 'react';
 import { useAddProject, useEditProject } from 'utils/project';
-import { useProjectModal } from './util';
+import { useProjectModal, useProjectsQueryKey } from './util';
 
 interface ProjectModalProps {}
 
@@ -13,7 +13,7 @@ const ProjectModal: React.FC<ProjectModalProps> = () => {
   const { projectModalOpen, close, editingProject, isLoading } = useProjectModal();
 
   const useMutationProject = editingProject ? useEditProject : useAddProject;
-  const { mutateAsync, error, isLoading: mutateLoading } = useMutationProject();
+  const { mutateAsync, error, isLoading: mutateLoading } = useMutationProject(useProjectsQueryKey());
 
   const [form] = useForm();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
