@@ -1,7 +1,6 @@
 import { useEditConfig, useAddConfig, useDeleteConfig } from './use-optimistic-options';
-import { useProjectsSearchParams } from 'pages/ProjectList/util';
 import { Project } from 'pages/ProjectList/List';
-import { useMutation, useQuery, useQueryClient, QueryKey } from 'react-query';
+import { useMutation, useQuery, QueryKey } from 'react-query';
 import { useHttp } from './http';
 
 export const useProjects = (param?: Partial<Project>) => {

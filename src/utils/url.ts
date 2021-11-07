@@ -6,7 +6,8 @@ import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
  * 返回页面中 指定键的参数值
  */
 export const useUrlQueryParam = <K extends string>(keys: K[]) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const setSearchParams = useSetUrlSearchParam();
 
   return [
     useMemo(
@@ -17,8 +18,16 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
       [searchParams]
     ),
     (params: Partial<{ [key in K]: unknown }>) => {
-      const o = cleanObject({ ...Object.fromEntries(searchParams), ...params }) as URLSearchParamsInit;
-      return setSearchParams(o);
+      return setSearchParams(params);
     },
   ] as const;
+};
+
+export const useSetUrlSearchParam = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  return (params: { [key in string]: unknown }) => {
+    const o = cleanObject({ ...Object.fromEntries(searchParams), ...params }) as URLSearchParamsInit;
+    return setSearchParams(o);
+  };
 };
