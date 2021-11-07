@@ -24,6 +24,11 @@ const ProjectModal: React.FC<ProjectModalProps> = () => {
     });
   };
 
+  const closeModal = () => {
+    form.resetFields();
+    close();
+  };
+
   const title = editingProject ? '编辑项目' : '创建项目';
 
   useEffect(() => {
@@ -31,7 +36,7 @@ const ProjectModal: React.FC<ProjectModalProps> = () => {
   }, [editingProject, form]);
 
   return (
-    <Drawer forceRender={true} onClose={close} visible={projectModalOpen} width={'100%'}>
+    <Drawer forceRender={true} onClose={closeModal} visible={projectModalOpen} width={'100%'}>
       <Container>
         {isLoading ? (
           <Spin size="large" />
