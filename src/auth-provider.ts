@@ -1,4 +1,4 @@
-import { User } from 'pages/ProjectList/SearchPanel';
+import { User } from 'types/User';
 
 // 在真实环境中，如果使用firebase第三方auth服务的话，本文件不需要开发
 const localStorageKey = '__auth_provider_token__';

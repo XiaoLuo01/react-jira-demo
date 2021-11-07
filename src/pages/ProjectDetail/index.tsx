@@ -15,7 +15,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = () => {
       <Routes>
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/taskgroup" element={<TaskGroup />} />
-        <Navigate to={window.location.pathname + '/dashboard'} />
+        <Navigate to={window.location.pathname + '/dashboard'} replace={true} />
       </Routes>
     </div>
   );
