@@ -9,7 +9,6 @@ interface ProjectDetailProps {}
 const ProjectDetail: React.FC<ProjectDetailProps> = () => {
   return (
     <div>
-      <h1>ProjectDetail</h1>
       <Link to="dashboard">看板</Link>
       <Link to="taskgroup">任务组</Link>
       <Routes>
