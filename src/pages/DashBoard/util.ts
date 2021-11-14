@@ -13,7 +13,7 @@ export const useProjectInUrl = () => useProject(useProjectIdInUrl());
 
 export const useDashboardSearchParam = () => ({ projectId: useProjectIdInUrl() });
 
-export const useDashboardQuerykey = () => ['dashboard', useDashboardSearchParam()];
+export const useDashboardQuerykey = () => ['kanbans', useDashboardSearchParam()];
 
 export const useTasksSearchParam = () => {
   const [param] = useUrlQueryParam(['name', 'typeId', 'processorId', 'tagId']);

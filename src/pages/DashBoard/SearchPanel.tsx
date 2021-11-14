@@ -10,7 +10,6 @@ interface BoardSearchPanelProps {}
 
 const BoardSearchPanel: React.FC<BoardSearchPanelProps> = () => {
   const searchParam = useTasksSearchParam();
-  console.log('searchParam', searchParam); //sy-log
   const setSearchParam = useSetUrlSearchParam();
   const reset = () => {
     setSearchParam({
