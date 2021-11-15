@@ -9,12 +9,12 @@ import 'antd/dist/antd.less';
 
 loadServer(() => {
   ReactDOM.render(
-    <React.StrictMode>
-      <AppProviders>
-        <DevTools />
-        <App />
-      </AppProviders>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <AppProviders>
+      <DevTools />
+      <App />
+    </AppProviders>,
+    // </React.StrictMode>,
     document.getElementById('root')
   );
 });

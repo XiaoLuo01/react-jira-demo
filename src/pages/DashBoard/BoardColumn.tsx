@@ -2,7 +2,7 @@ import React from 'react';
 import { DashBoardType } from 'types/Dashboard';
 import { useTasks } from 'utils/task';
 import { useTaskTypes } from 'utils/task-type';
-import { useTasksSearchParam } from './util';
+import { useTaskModal, useTasksSearchParam } from './util';
 import TaskIcon from 'assets/task.svg';
 import BugIcon from 'assets/bug.svg';
 import styled from '@emotion/styled';
@@ -19,18 +19,19 @@ const TaskTypeIcon = ({ id }: { id: number }) => {
   if (!name) {
     return null;
   }
-  return <img src={name === 'task' ? TaskIcon : BugIcon} />;
+  return <img alt={'task-icon'} src={name === 'task' ? TaskIcon : BugIcon} />;
 };
 
 const BoardColumn: React.FC<BoardColumnProps> = ({ dashBoard }) => {
   const { data: allTasks } = useTasks(useTasksSearchParam());
   const tasks = allTasks?.filter(task => task.kanbanId === dashBoard.id);
+  const { startEdit } = useTaskModal();
   return (
     <Container>
       <h3>{dashBoard.name}</h3>
       <TaskContainer>
         {tasks?.map(task => (
-          <Card style={{ marginBottom: '0.5rem' }} key={task.id}>
+          <Card onClick={() => startEdit(task.id)} style={{ marginBottom: '0.5rem', cursor: 'pointer' }} key={task.id}>
             <div>{task.name}</div>
             <TaskTypeIcon id={task.typeId} />
           </Card>

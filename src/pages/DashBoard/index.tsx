@@ -8,6 +8,7 @@ import { useTasks } from 'utils/task';
 import BoardColumn from './BoardColumn';
 import CreateBoard from './CreateBoard';
 import BoardSearchPanel from './SearchPanel';
+import TaskModal from './TaskModal';
 import { useDashboardSearchParam, useProjectInUrl, useTasksSearchParam } from './util';
 
 interface DashBoardProps {}
@@ -34,6 +35,7 @@ const DashBoard: React.FC<DashBoardProps> = () => {
           <CreateBoard />
         </ColumnContainer>
       )}
+      <TaskModal />
     </PageContainer>
   );
 };
