@@ -1,7 +1,7 @@
 import { DashBoardType } from 'types/Dashboard';
 import { QueryKey, useMutation, useQuery } from 'react-query';
 import { useHttp } from './http';
-import { useAddConfig } from './use-optimistic-options';
+import { useAddConfig, useDeleteConfig } from './use-optimistic-options';
 
 export const useDashboard = (param?: Partial<DashBoardType>) => {
   const client = useHttp();
@@ -19,5 +19,17 @@ export const useAddDashboard = (queryKey: QueryKey) => {
         data: params,
       }),
     useAddConfig(queryKey)
+  );
+};
+
+export const useDeleteKanban = (queryKey: QueryKey) => {
+  const client = useHttp();
+
+  return useMutation(
+    (id: number) =>
+      client(`kanbans/${id}`, {
+        method: 'DELETE',
+      }),
+    useDeleteConfig(queryKey)
   );
 };
