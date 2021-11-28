@@ -35,6 +35,7 @@ const ProjectList: React.FC<ProjectListProps> = () => {
 
 const Container = styled.div`
   padding: 3.2rem;
+  width: 100%;
 `;
 
 export default ProjectList;

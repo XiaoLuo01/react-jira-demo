@@ -8,7 +8,7 @@ import { ButtonNoPadding } from './lib';
 interface ProjectPopoverProps {}
 
 const ProjectPopover: React.FC<ProjectPopoverProps> = () => {
-  const { data: projects } = useProjects();
+  const { data: projects, refetch } = useProjects();
   const pinProject = projects?.filter(project => project.pin);
 
   const { open } = useProjectModal();
@@ -31,7 +31,7 @@ const ProjectPopover: React.FC<ProjectPopoverProps> = () => {
   );
 
   return (
-    <Popover placement={'bottom'} content={content}>
+    <Popover onVisibleChange={() => refetch()} placement={'bottom'} content={content}>
       <span>项目</span>
     </Popover>
   );
