@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navigate, Routes, Route, useLocation } from 'react-router';
 import DashBoard from 'pages/DashBoard';
-import TaskGroup from 'pages/TaskGroup';
+import Epic from 'pages/Epic';
 import styled from '@emotion/styled';
 import { Menu } from 'antd';
 
@@ -22,15 +22,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = () => {
           <Menu.Item key="dashboard">
             <Link to="dashboard">看板</Link>
           </Menu.Item>
-          <Menu.Item key="taskgroup">
-            <Link to="taskgroup">任务组</Link>
+          <Menu.Item key="epic">
+            <Link to="epic">任务组</Link>
           </Menu.Item>
         </Menu>
       </Aside>
       <Main>
         <Routes>
           <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/taskgroup" element={<TaskGroup />} />
+          <Route path="/epic" element={<Epic />} />
           <Navigate to={window.location.pathname + '/dashboard'} replace={true} />
         </Routes>
       </Main>
@@ -41,6 +41,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = () => {
 const Container = styled.div`
   display: grid;
   grid-template-columns: 16rem 1fr;
+  width: 100%;
 `;
 
 const Aside = styled.aside`
